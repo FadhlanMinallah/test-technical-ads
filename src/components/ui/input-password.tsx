@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Eye, EyeOff } from "lucide-react"; // Gunakan ikon dari lucide-react (atau ikon lain yang kamu gunakan)
-import { cn } from "@/lib/utils"; // Optional: fungsi utilitas className jika kamu pakai tailwind-merge atau clsx
+import { cn } from "@/utils"; // Optional: fungsi utilitas className jika kamu pakai tailwind-merge atau clsx
 
 interface InputPasswordProps {
   label: string;

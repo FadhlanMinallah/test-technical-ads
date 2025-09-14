@@ -1,7 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App'
-import "./style/globals.css"
+import "./styles/globals.css"
 
 // Import font Inter
 import "@fontsource/inter/400.css"; // Regular
