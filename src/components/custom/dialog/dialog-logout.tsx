@@ -29,7 +29,7 @@ export default function LogoutDialog({ onConfirm, trigger }: LogoutDialogProps) 
                 <AlertDialogHeader className="flex flex-col items-start space-y-1">
                     <img src="/src/assets/icon-danger.svg" alt="" className="w-16 h-16" />
                     <AlertDialogTitle className="text-lg font-semibold text-center">
-                        Logout
+                        Logout Account
                     </AlertDialogTitle>
                     <AlertDialogDescription className="text-left text-gray-500">
                         Are you sure you want to logout?
@@ -42,7 +42,7 @@ export default function LogoutDialog({ onConfirm, trigger }: LogoutDialogProps) 
                     </AlertDialogCancel>
                     <AlertDialogAction
                         onClick={onConfirm}
-                        className="rounded-lg bg-gradient-to-r from-red-500 to-red-600 px-4 py-2 text-white hover:from-red-600 hover:to-red-700"
+                        className="rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 px-4 py-2 text-white hover:from-blue-600 hover:to-blue-700"
                     >
                         Logout
                     </AlertDialogAction>
