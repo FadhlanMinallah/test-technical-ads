@@ -10,12 +10,13 @@ import SchedulePage from "@/pages/schedule";
 import FinancePage from "@/pages/finance";
 import StatisticPage from "@/pages/statistic";
 import NotFoundPage from "@/pages/not-found";
-import { initAuth, useLoginStore } from "./store/use-login-store";
+import { useAuthStore } from "@/store/use-auth";
 import { useEffect } from "react";
 
 function App() {
-  const hydrated = useLoginStore((state) => state.hydrated);
-  const isAuthenticated = useLoginStore((state) => state.isAuthenticated);
+  const hydrated = useAuthStore((state) => state.hydrated);
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const initAuth = useAuthStore((state) => state.initAuth);
 
   useEffect(() => {
     initAuth();
