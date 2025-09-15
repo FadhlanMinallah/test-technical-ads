@@ -1,7 +1,7 @@
+import { UnderDevelopmentCard } from "@/components/common/index";
+
 export default function SchedulePage() {
     return (
-        <div className="content-card">
-            Schedule
-        </div>
+        <UnderDevelopmentCard title="Schedule" />
     )
 }

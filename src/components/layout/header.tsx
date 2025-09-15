@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import DropdownProfile from "@/components/custom/dropdown/dropdown-profile";
 
-export default function Header() {
+export default function Header({ className }: { className?: string }) {
   const navigate = useNavigate();
 
   const location = useLocation();
@@ -21,10 +21,9 @@ export default function Header() {
     navigate('/login');
   };
 
-  const user = JSON.parse(localStorage.getItem('user') || '{}');
 
   return (
-    <div className='grid grid-cols-[80px_minmax(auto,_1fr)] border-b border-sidebar-border bg-white'>
+    <div className={`grid grid-cols-[80px_minmax(auto,_1fr)] border-b border-sidebar-border bg-white ${className}`}>
       <div className="flex items-center justify-center border-r border-sidebar-border min-w-16">
         <img src="src/assets/logo.svg" alt="" className="w-8 h-8" />
       </div>
@@ -40,7 +39,7 @@ export default function Header() {
           </button>
 
           {/* search bar */}
-          <div className="relative flex items-center">
+          <div className="relative hidden md:flex items-center">
             <Search className="absolute left-3 h-4 w-4 text-gray-400" />
             <input
               type="text"

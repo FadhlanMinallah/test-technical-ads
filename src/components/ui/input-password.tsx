@@ -29,13 +29,13 @@ export default function InputPassword({
           placeholder={placeholder}
           value={value}
           onChange={onChange}
-          className="pr-10" // Tambah padding kanan agar ikon tidak menutupi teks
+          className="pr-12" // Tambah padding kanan agar ikon tidak menutupi teks
         />
         <button
           type="button"
           onClick={() => setShowPassword((prev) => !prev)}
           className={cn(
-            "absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 cursor-pointer",
+            "absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 cursor-pointer",
             "focus:outline-none"
           )}
           aria-label={showPassword ? "Hide password" : "Show password"}

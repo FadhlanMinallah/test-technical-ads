@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import { User } from "@/types/user"
 import usersData from "@/data/users.json"
@@ -15,13 +15,22 @@ import { UserDialog } from "@/components/custom/dialog/dialog-users"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 // icons
-import { Memo } from "@/components/icons"
-import { MoreHorizontal, Plus, Search } from "lucide-react"
+import { Plus, Search } from "lucide-react"
+import { SkeletonTable } from "@/components/common"
+import HeaderUsers from "./components/header-users"
 
 
 export default function UsersPage() {
 
   const [users, setUsers] = useState<User[]>(usersData)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+
+  useEffect(() => {
+    setIsLoading(true)
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 1000)
+  }, []) // agar dipanggil hanya ketika render
 
   const handleAddUser = (user: { username: string, name: string, phone: string, password: string }) => {
     setUsers((prev) => [...prev, {
@@ -62,42 +71,37 @@ export default function UsersPage() {
   return (
     <div className='content-card'>
       {/* header */}
-      <div className="flex justify-between items-center mb-6">
-        <div className="flex items-center gap-2">
-          <Memo />
-          List User
-        </div>
-        <Button variant='outline'>
-          <MoreHorizontal />
-        </Button>
-      </div>
+      <HeaderUsers />
 
       {/* action */}
-      <div className="flex justify-between items-center mb-8">
+      <div className="flex flex-col md:flex-row gap-4 md:gap-0 md:justify-between md:items-center mb-8">
+        {/* filter */}
         <Select>
-          <SelectTrigger className="w-[180px]" size={'lg'}>
+          <SelectTrigger className="w-full md:w-[180px]" size={'lg'}>
             <SelectValue placeholder="Filter" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value='all'>All</SelectItem>
-            <SelectItem value='admin'>Admin</SelectItem>
-            <SelectItem value='user'>User</SelectItem>
-            <SelectItem value='manager'>Manager</SelectItem>
+            <SelectItem value='id'>ID</SelectItem>
+            <SelectItem value='username'>Username</SelectItem>
+            <SelectItem value='name'>Name</SelectItem>
+            <SelectItem value='phone'>Telephone Number</SelectItem>
           </SelectContent>
         </Select>
-        <div className="flex items-center gap-4">
+
+        {/* search */}
+        <div className="flex flex-col md:flex-row md:items-center gap-4">
           <InputWithIcon
             icon={Search}
             placeholder="Search user"
-            className="w-64"
+            className="w-64 flex-1 md:flex-none"
           />
 
-
+          {/* add users */}
           <UserDialog
             onSubmit={handleAddUser}
             mode="add"
             trigger={
-              <Button className='w-36 gap-1' size={'lg'}>
+              <Button className='w-full md:w-36 gap-1' size={'lg'}>
                 <Plus />
                 Add
               </Button>
@@ -110,7 +114,11 @@ export default function UsersPage() {
       <ToastContainer />
 
       {/* table */}
-      <DataTable columns={columns} data={users} className="table-fixed" />
+      {isLoading ? (
+        <SkeletonTable rows={10} columns={5} />
+      ) : (
+        <DataTable columns={columns} data={users} className="table-fixed" />
+      )}
     </div>
   );
 }

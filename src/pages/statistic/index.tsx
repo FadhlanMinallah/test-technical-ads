@@ -1,7 +1,7 @@
+import { UnderDevelopmentCard } from "@/components/common/index";
+
 export default function StatisticPage() {
     return (
-        <div className="content-card">
-            Statistic
-        </div>
+        <UnderDevelopmentCard title="Statistic" />
     )
 }

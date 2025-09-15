@@ -61,7 +61,10 @@ export function UserDialog({
                     </Button>
                 )}
             </DialogTrigger>
-            <DialogContent className="sm:max-w-md">
+            <DialogContent
+                className="sm:max-w-md"
+                onOpenAutoFocus={(e) => e.preventDefault()}
+            >
                 <DialogHeader>
                     <DialogTitle className="flex gap-2 items-center">
                         <Memo className="h-6 w-6" />
@@ -69,7 +72,7 @@ export function UserDialog({
                     </DialogTitle>
                 </DialogHeader>
 
-                <div className="grid gap-4 py-2">
+                <div className="grid gap-4 py-2 form-wrapper">
 
                     <div className="grid gap-2">
                         <Label htmlFor="username">Username</Label>

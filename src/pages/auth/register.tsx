@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import SocialLogin from '@/components/custom/widget/widget-social-buttons';
 import InputPassword from '@/components/ui/input-password';
+import RegisterForm from './components/register-form';
 
 export default function Register() {
   const [name, setName] = useState('');
@@ -37,31 +38,18 @@ export default function Register() {
   return (
     <div>
       <div className='text-center'>
-        <p className='text-4xl font-medium mb-4'>Create an Account</p>
-        <p className='text-sm text-gray-400 mb-12'>Join now to streamline your experience from day one.</p>
+        <p className='auth-title'>Create an Account</p>
+        <p className='auth-subtitle'>Join now to streamline your experience from day one.</p>
 
-        <form className='space-y-5'>
-          <div className="grid w-full items-center gap-2">
-            <Label htmlFor="name">Full Name</Label>
-            <Input type="text" id="name" placeholder="Enter your full name" value={name} onChange={(e) => setName(e.target.value)} />
-          </div>
-          <div className="grid w-full items-center gap-2">
-            <Label htmlFor="username">Username</Label>
-            <Input type="text" id="username" placeholder="Choose a username" value={username} onChange={(e) => setUsername(e.target.value)} />
-          </div>
-          <InputPassword label="Password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-          <InputPassword label="Confirm Password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
-
-
-          <Button onClick={handleSubmit} size={'lg'} width={'full'}>Register</Button>
+        <div className="space-y-5">
+          <RegisterForm />
 
           <SocialLogin text='Or Register With' />
 
-          <p className='text-sm text-gray-400'>
-            Already have an account?{' '}
+          <p className='text-xs md:text-sm text-gray-400'>Already have an account?{' '}
             <Link to="/login" className="text-primary">Sign In</Link>
           </p>
-        </form>
+        </div>
       </div>
     </div>
   );

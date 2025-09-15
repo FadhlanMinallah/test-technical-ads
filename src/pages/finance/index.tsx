@@ -1,7 +1,7 @@
+import { UnderDevelopmentCard } from "@/components/common/index";
+
 export default function FinancePage() {
     return (
-        <div className="content-card">
-            Finance
-        </div>
+        <UnderDevelopmentCard title="Finance" />
     )
 }

@@ -111,7 +111,6 @@ export function getColumns({
                                     trigger={
                                         <DropdownMenuItem
                                             onSelect={(e) => e.preventDefault()}
-                                            className="cursor-pointer"
                                         >
                                             Edit
                                         </DropdownMenuItem>
@@ -125,7 +124,7 @@ export function getColumns({
                                     trigger={
                                         <DropdownMenuItem
                                             onSelect={(e) => e.preventDefault()}
-                                            className="cursor-pointer"
+                                            variant="destructive"
                                         >
                                             Delete
                                         </DropdownMenuItem>
