@@ -1,10 +1,11 @@
 import { useState } from "react"
 import { ChevronDown, LogOut, User } from "lucide-react"
 import LogoutDialog from "@/components/custom/dialog/dialog-logout";
+import { useLoginStore } from "@/store/use-login-store";
 
 export default function DropdownProfile({ onLogout }: { onLogout: () => void }) {
   const [open, setOpen] = useState(false)
-  const user = JSON.parse(localStorage.getItem('user') || '{}');
+  const { user } = useLoginStore();
 
   return (
     <div className="relative">
@@ -29,7 +30,7 @@ export default function DropdownProfile({ onLogout }: { onLogout: () => void }) 
           >
             <User className="h-4 w-4 text-gray-600" />
             {/* Profile */}
-            {user.name}
+            {user?.username}
           </div>
           <hr />
 

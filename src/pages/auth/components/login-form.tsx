@@ -4,62 +4,49 @@ import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import InputPassword from '@/components/ui/input-password';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Bounce, toast, ToastContainer } from 'react-toastify';
 import { toastConfig } from '@/utils/helpers';
 
+import { FormEvent } from 'react';
+import { useLoginStore } from '@/store/use-login-store';
+
 export default function LoginForm() {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
 
-    // Dummy credential
-    const DUMMY_USER = {
-        username: "test_admin",
-        password: "test_password123",
-    };
+    const { values, errors, setField, authenticate, isAuthenticated } = useLoginStore();
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            console.log("isAuthenticated");
+            navigate("/dashboard");
+            // navigate("/dashboard", { replace: true });
+        }
+    }, []);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        setError("");
-
-        if (!username || !password) {
-            setError("Username dan password wajib diisi!");
-            toast.error('Username dan Password wajib diisi.', {
-                ...toastConfig,
-                position: 'top-left',
-            });
-            return;
+        if (authenticate()) {
+            navigate("/dashboard");
+        } else {
+            console.log("Login gagal");
         }
-
-        setIsLoading(true);
-
-        setTimeout(() => {
-            if (username === DUMMY_USER.username && password === DUMMY_USER.password) {
-                setError("");
-                localStorage.setItem('isLoggedIn', 'true');
-                localStorage.setItem('user', JSON.stringify({ username, name: 'Admin User' }));
-                navigate("/dashboard");
-            } else {
-                setError("Username atau password salah!");
-                toast.error('Username atau Password salah.', {
-                    ...toastConfig,
-                    position: 'top-left',
-                });
-            }
-            setIsLoading(false);
-        }, 1500);
     };
     return (
         <form className="space-y-5">
-            <div className="grid w-full items-center gap-2">
+            <div className="grid w-full items-center gap-2 text-left">
                 <Label htmlFor="email">Username</Label>
-                <Input type="email" id="username" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
+                <Input type="email" id="username" placeholder="Username" value={values.username} onChange={(e) => setField("username", e.target.value)} />
+
+                {errors.username && (<p className="text-red-500 text-xs relative">{errors.username}</p>)}
             </div>
-            <InputPassword label="Password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <div className="grid w-full items-center gap-2 text-left">
+                <InputPassword label="Password" placeholder="Password" value={values.password} onChange={(e) => setField("password", e.target.value)} />
+
+                {errors.password && (<p className="text-red-500 text-xs relative">{errors.password}</p>)}
+            </div>
 
             <div className="flex justify-between items-center">
                 <div className="flex items-center">

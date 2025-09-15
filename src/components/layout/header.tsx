@@ -2,6 +2,7 @@ import { Bell, Search } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import DropdownProfile from "@/components/custom/dropdown/dropdown-profile";
+import { useLoginStore } from '@/store/use-login-store';
 
 export default function Header({ className }: { className?: string }) {
   const navigate = useNavigate();
@@ -10,14 +11,14 @@ export default function Header({ className }: { className?: string }) {
   const pathName = location.pathname;
 
   const [title, setTitle] = useState('');
+  const logout = useLoginStore((state) => state.logout);
 
   useEffect(() => {
     setTitle(pathName.replace('/', '').charAt(0).toUpperCase() + pathName.replace('/', '').slice(1));
   }, [pathName])
 
   const handleLogout = () => {
-    localStorage.removeItem('isLoggedIn');
-    localStorage.removeItem('user');
+    logout();
     navigate('/login');
   };
 

@@ -10,9 +10,20 @@ import SchedulePage from "@/pages/schedule";
 import FinancePage from "@/pages/finance";
 import StatisticPage from "@/pages/statistic";
 import NotFoundPage from "@/pages/not-found";
+import { initAuth, useLoginStore } from "./store/use-login-store";
+import { useEffect } from "react";
 
 function App() {
-  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+  const hydrated = useLoginStore((state) => state.hydrated);
+  const isAuthenticated = useLoginStore((state) => state.isAuthenticated);
+
+  useEffect(() => {
+    initAuth();
+  }, []);
+
+  if (!hydrated) {
+    return <div className="flex items-center justify-center h-screen">Loading...</div>;
+  }
 
   return (
     <BrowserRouter>
@@ -21,7 +32,7 @@ function App() {
         <Route path="/*" element={<AuthApp />} />
 
         {/* Protected routes */}
-        <Route element={<ProtectedRoutes isLoggedIn={isLoggedIn} />}>
+        <Route element={<ProtectedRoutes isLoggedIn={isAuthenticated} />}>
           <Route element={<AppLayout />}>
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/users" element={<UsersPage />} />
